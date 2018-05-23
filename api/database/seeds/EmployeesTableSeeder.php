@@ -13,7 +13,7 @@ class EmployeesTableSeeder extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
-        for ($i = 0; $i < 15; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
             Employee::create([
                 'full_name' => $faker->name,
             ]);

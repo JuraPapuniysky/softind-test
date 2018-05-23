@@ -3,15 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Employee extends Model
 {
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function photos()
+    public function photo()
     {
-        return $this->hasOne('App\Photos');
+        return $this->hasOne('App\Photo');
     }
 
     /**
@@ -19,7 +21,8 @@ class Employee extends Model
      */
     public function characteristics()
     {
-        return $this->belongsToMany('App\Characteristic');
+        return $this->belongsToMany('App\Characteristic', 'employee_characteristic')
+            ->withPivot('score');
     }
 
     /**
@@ -27,11 +30,39 @@ class Employee extends Model
      */
     public function projects()
     {
-        return $this->belongsToMany('App\Project');
+        return $this->belongsToMany('App\Project', 'employee_project');
     }
 
-    public function characteristicsScore()
+    /**
+     * @param $employees Employee[]
+     * @return array
+     */
+    public static function getEmployeesData($employees = null)
     {
-
+        $data = [];
+        if ($employees === null){
+            $employees = self::all();
+        }
+        foreach ($employees as $employee){
+            array_push($data, [
+                        'id' => $employee->id,
+                        'full_name' => $employee->full_name,
+                        'characteristics' =>  $employee->characteristics,
+                        'projects' => $employee->projects,
+                        'photo' => $employee->photo,
+                    ]);
+        }
+        return $data;
     }
+
+    /**
+     * @param $search
+     * @return \Illuminate\Support\Collection
+     */
+
+    public static function search($search)
+    {
+        return self::where('full_name', 'like', '%' . $search . '%')->get();
+    }
+
 }
