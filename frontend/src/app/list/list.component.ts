@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {EmployeesService} from "../services/employees.service";
-import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-list',
@@ -20,11 +20,23 @@ export class ListComponent implements OnInit {
 
   public list(){
     this.employeesService.getEmployeesList()
+
       .subscribe(data => {
-        console.log(data.employees);
+        console.log(data);
         this.employees = data.employees;
         this.averages = data.average;
       });
+  }
+
+  public search(creteria){
+    if (creteria != '') {
+      this.employeesService.getSearchList(creteria)
+        .subscribe(data => {
+          this.employees = data.employees;
+        });
+    } else {
+      this.list();
+    }
   }
 
 }

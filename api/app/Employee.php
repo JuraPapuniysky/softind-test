@@ -40,7 +40,7 @@ class Employee extends Model
     public static function getEmployeesData($employees = null)
     {
         $data = [];
-        if ($employees === null){
+       if ($employees[0] === null){
             $employees = self::all();
         }
         foreach ($employees as $employee){

@@ -13,7 +13,10 @@ export class EmployeesService {
 
   public getEmployeesList(){
     return this.http.get(this.url+'employees/');
+  }
 
+  public getSearchList(creteria){
+    return this.http.get(this.url + 'employees/search/' + creteria);
   }
 
 }

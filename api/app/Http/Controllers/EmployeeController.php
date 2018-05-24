@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Employee;
 use App\EmployeeCharacteristic;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EmployeeController extends Controller
 {
@@ -22,7 +23,12 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        return Employee::getEmployeesData([Employee::find($id)]);
+        if (($model = Employee::find($id)) !== null){
+            return ['employees' => Employee::getEmployeesData([$model])];
+        } else {
+            throw new NotFoundHttpException('Invalid search creteria!');
+        }
+
     }
 
     /**

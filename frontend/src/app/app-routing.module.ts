@@ -8,7 +8,7 @@ import {ListComponent} from "./list/list.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'list', pathMatch: 'full'},
-  {path: 'employee', component: EmployeeComponent},
+  {path: 'employee/:id', component: EmployeeComponent},
   {path: 'list', component: ListComponent},
 ]
 
