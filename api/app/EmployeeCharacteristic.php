@@ -12,7 +12,8 @@ class EmployeeCharacteristic extends Model
     public static function getAverage()
     {
         return DB::table('employee_characteristic')
-            ->select(DB::raw('distinct(characteristic_id)'), DB::raw('sum(score) as average_score'))
+            ->join('characteristics', 'characteristics.id', '=', 'employee_characteristic.characteristic_id')
+            ->select(DB::raw('distinct(characteristic_id)'), DB::raw('sum(score) as average_score'), 'name')
             ->groupBy('characteristic_id')
             ->get();
     }
