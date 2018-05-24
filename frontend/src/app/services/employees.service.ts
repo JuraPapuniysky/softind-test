@@ -19,4 +19,8 @@ export class EmployeesService {
     return this.http.get(this.url + 'employees/search/' + creteria);
   }
 
+  public getEmployee(id){
+    return this.http.get(this.url + 'employees/'+ id);
+  }
+
 }

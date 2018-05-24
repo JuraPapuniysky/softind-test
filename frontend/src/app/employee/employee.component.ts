@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+import {EmployeesService} from "../services/employees.service";
+import {ProjectsService} from "../services/projects.service";
 
 @Component({
   selector: 'app-employee',
@@ -9,12 +11,46 @@ import {ActivatedRoute} from "@angular/router";
 export class EmployeeComponent implements OnInit {
 
   public id: number;
+  public employee: any;
+  public employeeProjects: any;
+  public projects: any;
 
-  constructor(private activateRoute: ActivatedRoute) {
+  constructor(
+    private activateRoute: ActivatedRoute,
+    private employeesService: EmployeesService,
+    private projectService: ProjectsService
+  ) {
     this.id = activateRoute.snapshot.params['id'];
+    this.employee(this.id)
+    this.projects();
   }
 
   ngOnInit() {
+
+  }
+
+  public employee(id){
+    this.employeesService.getEmployee(id)
+      .subscribe(data=>{
+        this.employee = data.employees[0];
+        this.employeeProjects = data.projects;
+        console.log(this.employee);
+      })
+  }
+
+  public projects(){
+    this.projectService.getProjects()
+      .subscribe(data => {
+        console.log(data);
+        this.projects = data.projects;
+      })
+  }
+
+  public addProject(projectId){
+    this.projectService.addProject(this.id, projectId)
+      .subscribe(data => {
+        console.log(data);
+      })
   }
 
 }

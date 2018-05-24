@@ -22,3 +22,6 @@ Route::post('employees', 'EmployeeController@store');
 Route::put('employees/{id}', 'EmployeeController@update');
 Route::delete('employees/{id}', 'EmployeeController@delete');
 Route::get('employees/search/{search}', 'EmployeeController@search');
+
+Route::get('projects', 'ProjectController@index');
+Route::post('projects/add/', 'ProjectsController@add');

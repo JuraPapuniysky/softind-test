@@ -18,4 +18,19 @@ class EmployeeCharacteristic extends Model
             ->get();
     }
 
+    /**
+     * @param $employeeId
+     * @return bool
+     */
+    public static function canAdd($employeeId)
+    {
+        $timeManagementChar = Characteristic::where('name', '=', 'Time management')->first();
+        $empChar = EmployeeCharacteristic::where('characteristic_id', '=', $timeManagementChar->id)
+            ->where('employee_id', '=', $employeeId)->first();
+        if ($empChar->score == 10){
+            return true;
+        }
+        return false;
+    }
+
 }
