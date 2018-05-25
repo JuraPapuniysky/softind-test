@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('employees', 'EmployeeController@index');
 Route::get('employees/{id}', 'EmployeeController@show');
 Route::post('employees', 'EmployeeController@store');
-Route::put('employees/{id}', 'EmployeeController@update');
+Route::put('employees', 'EmployeeController@update');
 Route::delete('employees/{id}', 'EmployeeController@delete');
 Route::get('employees/search/{search}', 'EmployeeController@search');
 

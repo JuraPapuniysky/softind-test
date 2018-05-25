@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {EmployeesService} from "../services/employees.service";
 import {ProjectsService} from "../services/projects.service";
+import {Employee} from "../models/Employee";
 
 @Component({
   selector: 'app-employee',
@@ -15,6 +16,8 @@ export class EmployeeComponent implements OnInit {
   public employeeProjects: any;
   public projects: any;
 
+  public model;
+
   constructor(
     private activateRoute: ActivatedRoute,
     private employeesService: EmployeesService,
@@ -27,7 +30,6 @@ export class EmployeeComponent implements OnInit {
   ngOnInit() {
     this.getEmployee(this.id)
     this.getProjects();
-
   }
 
   public getEmployee(id){
@@ -35,7 +37,8 @@ export class EmployeeComponent implements OnInit {
       .subscribe(data=>{
         this.employee = data.employees[0];
         this.employeeProjects = this.employee.projects;
-        console.log(data);
+        this.model = new Employee(this.employee.id, this.employee.full_name, this.employee.photo, this.employee.characteristics);
+        console.log(this.model);
       })
   }
 
@@ -51,6 +54,28 @@ export class EmployeeComponent implements OnInit {
       .subscribe(data => {
         this.employeeProjects = data.projects
       })
+  }
+
+  onFileChange(event){
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.model.photo = {
+          filename: file.name,
+          filetype: file.type,
+          value: reader.result.split(',')[1]
+        };
+      };
+    }
+  }
+
+  public updateEmployee(){
+    this.employeesService.updateEmployee(this.model)
+      .subscribe(res => {
+        console.log(res);
+      });
   }
 
 }

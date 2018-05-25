@@ -45,10 +45,10 @@ class EmployeeController extends Controller
      * @param $id
      * @return mixed
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $employee = Employee::findOrFail($id);
-        $employee->update($request->all());
+        $employee = Employee::findOrFail($request->id);
+        $employee->updateEmployee($request);
 
         return $employee;
     }

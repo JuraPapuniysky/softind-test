@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {Employee} from "../models/Employee";
 
 
 
@@ -21,6 +22,10 @@ export class EmployeesService {
 
   public getEmployee(id){
     return this.http.get(this.url + 'employees/'+ id);
+  }
+
+  public updateEmployee(employee: Employee){
+    return this.http.put(this.url + 'employees/', employee);
   }
 
 }
