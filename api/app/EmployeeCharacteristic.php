@@ -27,10 +27,7 @@ class EmployeeCharacteristic extends Model
         $timeManagementChar = Characteristic::where('name', '=', 'Time management')->first();
         $empChar = EmployeeCharacteristic::where('characteristic_id', '=', $timeManagementChar->id)
             ->where('employee_id', '=', $employeeId)->first();
-        if ($empChar->score == 10){
-            return true;
-        }
-        return false;
+       return $empChar->score == 10;
     }
 
 }

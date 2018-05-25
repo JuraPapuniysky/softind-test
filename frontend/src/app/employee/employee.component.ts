@@ -21,27 +21,27 @@ export class EmployeeComponent implements OnInit {
     private projectService: ProjectsService
   ) {
     this.id = activateRoute.snapshot.params['id'];
-    this.employee(this.id)
-    this.projects();
+
   }
 
   ngOnInit() {
+    this.getEmployee(this.id)
+    this.getProjects();
 
   }
 
-  public employee(id){
+  public getEmployee(id){
     this.employeesService.getEmployee(id)
       .subscribe(data=>{
         this.employee = data.employees[0];
-        this.employeeProjects = data.projects;
-        console.log(this.employee);
+        this.employeeProjects = this.employee.projects;
+        console.log(data);
       })
   }
 
-  public projects(){
+  public getProjects(){
     this.projectService.getProjects()
       .subscribe(data => {
-        console.log(data);
         this.projects = data.projects;
       })
   }
@@ -49,7 +49,7 @@ export class EmployeeComponent implements OnInit {
   public addProject(projectId){
     this.projectService.addProject(this.id, projectId)
       .subscribe(data => {
-        console.log(data);
+        this.employeeProjects = data.projects
       })
   }
 
