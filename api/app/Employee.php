@@ -37,20 +37,31 @@ class Employee extends Model
      * @param $employees Employee[]
      * @return array
      */
-    public static function getEmployeesData($employees = null)
+    public static function getEmployeesData()
+    {
+        $employees = self::all();
+        return self::makeEmployees($employees);
+    }
+
+    public static function getEmployeesSearchData($employees)
+    {
+        if (count($employees) == 0){
+            return [];
+        }
+        return self::makeEmployees($employees);
+    }
+
+    private static function makeEmployees($employees)
     {
         $data = [];
-       if ($employees[0] === null){
-            $employees = self::all();
-        }
         foreach ($employees as $employee){
             array_push($data, [
-                        'id' => $employee->id,
-                        'full_name' => $employee->full_name,
-                        'characteristics' =>  $employee->characteristics,
-                        'projects' => $employee->projects,
-                        'photo' => $employee->photo,
-                    ]);
+                'id' => $employee->id,
+                'full_name' => $employee->full_name,
+                'characteristics' =>  $employee->characteristics,
+                'projects' => $employee->projects,
+                'photo' => $employee->photo,
+            ]);
         }
         return $data;
     }

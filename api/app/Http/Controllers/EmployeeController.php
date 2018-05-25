@@ -70,7 +70,7 @@ class EmployeeController extends Controller
     {
         if (!empty($search)) {
             return [
-                'employees' => Employee::getEmployeesData(Employee::search($search)),
+                'employees' => Employee::getEmployeesSearchData(Employee::search($search)),
                 'average' => EmployeeCharacteristic::getAverage(),
             ];
         } else {

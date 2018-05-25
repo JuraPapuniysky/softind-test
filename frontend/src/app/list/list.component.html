@@ -29,7 +29,7 @@
   </div>
   <div class="col-md-4">
     <div>
-      <input type="text" class="form-control" #searchInput>
+      <input (change)="search(searchInput.value)" type="text" class="form-control" #searchInput>
       <button (click)="search(searchInput.value)"  class="btn btn-success">Search</button>
       <h2>Average Score</h2>
       <p *ngFor="let average of averages">

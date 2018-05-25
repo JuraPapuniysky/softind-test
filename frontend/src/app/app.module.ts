@@ -9,6 +9,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { ListComponent } from './list/list.component';
 import {EmployeesService} from "./services/employees.service";
 import {ProjectsService} from "./services/projects.service";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import {ProjectsService} from "./services/projects.service";
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule
   ],
@@ -25,6 +27,8 @@ import {ProjectsService} from "./services/projects.service";
     EmployeesService,
     ProjectsService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+  ]
 })
 export class AppModule { }
