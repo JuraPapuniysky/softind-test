@@ -81,7 +81,10 @@ export class EmployeeComponent implements OnInit {
   }
 
   public onChangeSkill(value, characteristicId){
-
+    this.employeesService.updateEmployeeCharacteristic(value, characteristicId, this.employee.id)
+      .subscribe(data => {
+        this.employee.characteristics = data;
+      });
   }
 
 }

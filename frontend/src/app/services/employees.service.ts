@@ -34,7 +34,7 @@ export class EmployeesService {
       'characteristic_id': characteristicId,
       'score': score
     };
-    this.http.put(this.url + 'characteristics/change', data);
+    return this.http.put(this.url + 'characteristics/change', data);
   }
 
 }
