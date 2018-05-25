@@ -2,37 +2,49 @@
   <div class="col-md-7">
     <div class="row">
       <div class="col-md-6">
-         <form (ngSubmit)="updateEmployee()" #updateEmployeeForm = "ngForm">
+        <form (ngSubmit)="updateEmployee()" #updateEmployeeForm="ngForm">
           <h3 class="form-signin-heading">Employee {{employee.full_name}}</h3>
           <div class="form-group">
-            <label for="full_name" >Full name</label>
-            <input type="text" class="form-control" id="full_name" name="full_name" #full_name = ngModel value="{{model.full_name}}" [(ngModel)]="model.full_name">
+            <label for="full_name">Full name</label>
+            <input type="text" class="form-control" id="full_name" name="full_name" #full_name=ngModel
+                   value="{{model.full_name}}" [(ngModel)]="model.full_name">
           </div>
           <img src="http://localhost:8000/{{employee.photo.src}}">
           <div class="form-group">
             <label for="photo">Photo</label>
-            <input (change)="onFileChange($event)" name="photo" type="file" id="photo" #file = ngModel [(ngModel)]="model.photo">
+            <input (change)="onFileChange($event)" name="photo" type="file" id="photo" #file=ngModel
+                   [(ngModel)]="model.photo">
           </div>
-
-          <button type="submit" class="btn btn-primary" [disabled]="!updateEmployeeForm.form.valid">Update employee</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!updateEmployeeForm.form.valid">Update employee
+          </button>
         </form>
-        <p *ngFor="let characteristic of employee.characteristics">
-          {{characteristic.name}} - {{characteristic.pivot.score}}
-        </p>
+
+
       </div>
       <div class="col-md-6">
-        <h3>Projects</h3>
-        <p *ngFor="let employeeProject of employeeProjects">
-          {{employeeProject.name}}
+        <h3>Employee skills</h3>
+        <p *ngFor="let characteristic of employee.characteristics">
+          {{characteristic.name}} - {{characteristic.pivot.score}}
+          <select class="form-control" (change)="onChangeSkill($event.target.value, characteristic.id)">
+            <option *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{i}}</option>
+          </select>
         </p>
       </div>
     </div>
 
   </div>
   <div class="col-md-5">
-    <p *ngFor="let project of projects">
-      <button (click)="addProject(project.id)" class="btn btn-default">Add Project {{project.name}}</button>
-    </p>
+    <div class="col-md-6">
+      <p *ngFor="let project of projects">
+        <button (click)="addProject(project.id)" class="btn btn-default">Add Project {{project.name}}</button>
+      </p>
+    </div>
+    <div class="col-md-6">
+      <h3>Projects</h3>
+      <p *ngFor="let employeeProject of employeeProjects">
+        {{employeeProject.name}}
+      </p>
+    </div>
   </div>
 </div>
 

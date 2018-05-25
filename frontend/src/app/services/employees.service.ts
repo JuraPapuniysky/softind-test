@@ -28,4 +28,13 @@ export class EmployeesService {
     return this.http.put(this.url + 'employees/', employee);
   }
 
+  public updateEmployeeCharacteristic(score, characteristicId, employeeId){
+    let data = {
+      'employee_id': employeeId,
+      'characteristic_id': characteristicId,
+      'score': score
+    };
+    this.http.put(this.url + 'characteristics/change', data);
+  }
+
 }

@@ -56,6 +56,7 @@ class Employee extends Model
     private function savePhoto($src)
     {
         if (($photo = Photo::where('employee_id', '=', $this->id)->first()) !== null) {
+            unlink($photo->src);
             $photo->src = $src;
         } else {
             $photo = new Photo();
@@ -66,12 +67,15 @@ class Employee extends Model
         $photo->save();
     }
 
+    /**
+     * @return string
+     */
     public function getPhoto()
     {
         if ($this->photo == null) {
             return self::DEFAULT_PHOTO;
         }
-        return $this->photo;
+        return $this->photo->src;
     }
 
     /**
@@ -86,6 +90,10 @@ class Employee extends Model
         return self::makeEmployees($employees);
     }
 
+    /**
+     * @param $employees
+     * @return array
+     */
     public static function getEmployeesSearchData($employees)
     {
         if (count($employees) == 0) {
@@ -94,6 +102,10 @@ class Employee extends Model
         return self::makeEmployees($employees);
     }
 
+    /**
+     * @param $employees
+     * @return array
+     */
     private static function makeEmployees($employees)
     {
         $data = [];
@@ -103,7 +115,7 @@ class Employee extends Model
                 'full_name' => $employee->full_name,
                 'characteristics' => $employee->characteristics,
                 'projects' => $employee->projects,
-                'photo' => $employee->getPhoto(),
+                'photo' => ['src' => $employee->getPhoto()],
             ]);
         }
         return $data;

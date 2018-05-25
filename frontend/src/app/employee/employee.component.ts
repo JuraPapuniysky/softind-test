@@ -16,6 +16,7 @@ export class EmployeeComponent implements OnInit {
   public employeeProjects: any;
   public projects: any;
 
+
   public model;
 
   constructor(
@@ -38,7 +39,7 @@ export class EmployeeComponent implements OnInit {
         this.employee = data.employees[0];
         this.employeeProjects = this.employee.projects;
         this.model = new Employee(this.employee.id, this.employee.full_name, this.employee.photo, this.employee.characteristics);
-        console.log(this.model);
+        console.log(this.employee);
       })
   }
 
@@ -73,9 +74,14 @@ export class EmployeeComponent implements OnInit {
 
   public updateEmployee(){
     this.employeesService.updateEmployee(this.model)
-      .subscribe(res => {
-        console.log(res);
+      .subscribe(data => {
+        this.employee = data.employees[0];
+        console.log(data);
       });
+  }
+
+  public onChangeSkill(value, characteristicId){
+
   }
 
 }

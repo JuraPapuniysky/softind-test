@@ -50,7 +50,7 @@ class EmployeeController extends Controller
         $employee = Employee::findOrFail($request->id);
         $employee->updateEmployee($request);
 
-        return $employee;
+        return ['employees' => Employee::getEmployeesData([$employee])];
     }
 
     /**
