@@ -62,7 +62,6 @@ class Employee extends Model
             $photo = new Photo();
             $photo->src = $src;
             $photo->employee_id = $this->id;
-
         }
         $photo->save();
     }
@@ -76,6 +75,18 @@ class Employee extends Model
             return self::DEFAULT_PHOTO;
         }
         return $this->photo->src;
+    }
+
+
+    public function delete()
+    {
+        if ($this->photo !== null){
+            unlink($this->photo->src);
+            $this->photo->delete();
+        }
+        EmployeeProject::where('employee_id', '=', $this->id)->delete();
+        EmployeeCharacteristic::where('employee_id', '=', $this->id)->delete();
+        return parent::delete();
     }
 
     /**

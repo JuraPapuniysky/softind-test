@@ -1,7 +1,11 @@
 <div class="row">
   <div class="col-md-8">
     <div class="list">
-    <button class="btn btn-success">Create Employee</button>
+    <button *ngIf="!getShowForm()" (click)="setShowForm(true)" class="btn btn-success">Create Employee</button>
+      <div *ngIf="getShowForm()">
+        <input name="fullName" type="text" class="form-control" #fullNameInput>
+        <button (click)="createEmployee(fullNameInput.value)" class="btn btn-primary">Create</button>
+      </div>
     <table class="table table-hover">
       <thead>
       <tr>
@@ -22,7 +26,7 @@
         <td></td>
         <td>
           <a [routerLink]="['/employee', employee.id]" class="btn btn-info">View/Update</a>
-          <button class="btn btn-danger">Delete</button>
+          <button (click)="deleteEmployee(employee.id)" class="btn btn-danger">Delete</button>
         </td>
       </tr>
       </tbody>
