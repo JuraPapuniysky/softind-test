@@ -25,5 +25,6 @@ Route::get('employees/search/{search}', 'EmployeeController@search');
 
 Route::get('projects', 'ProjectController@index');
 Route::post('projects/add/', 'ProjectController@add');
+Route::post('projects/deleteEmployeeProject/', 'ProjectController@deleteEmployeeProject');
 
 Route::put('characteristics/change/', 'CharacteristicController@updateEmployeeCharacteristic');

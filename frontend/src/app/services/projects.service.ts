@@ -26,4 +26,11 @@ export class ProjectsService {
     };
     return this.http.post(this.url + 'projects/add', data, this.httpOptions);
   }
+
+  public deleteEmployeeProject(employeeId, projectId){
+    return this.http.post(this.url + 'projects/deleteEmployeeProject/', {
+      'employee_id': employeeId,
+      'project_id': projectId
+    });
+  }
 }

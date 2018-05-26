@@ -39,5 +39,14 @@ class Project extends Model
 
     }
 
+    public static function deleteEmployeeProject($employeeId, $projectId)
+    {
+        EmployeeProject::where('employee_id', '=', $employeeId)
+            ->where('project_id', '=', $projectId)
+            ->delete();
+        return true;
+    }
+
+
 
 }

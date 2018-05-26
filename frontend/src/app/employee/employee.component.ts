@@ -15,6 +15,7 @@ export class EmployeeComponent implements OnInit {
   public employee: any;
   public employeeProjects: any;
   public projects: any;
+  public projectId: number;
 
 
   public model;
@@ -54,9 +55,9 @@ export class EmployeeComponent implements OnInit {
       })
   }
 
-  public addProject(projectId){
+  public addProject(){
     let dataResp: any;
-    this.projectService.addProject(this.id, projectId)
+    this.projectService.addProject(this.id, this.projectId)
       .subscribe(data => {
         dataResp = data;
         this.employeeProjects = dataResp.projects
@@ -87,11 +88,25 @@ export class EmployeeComponent implements OnInit {
       });
   }
 
+  public deleteEmployeeProject(projectId){
+    let index = this.employeeProjects.findIndex(d => d.id === projectId);
+    this.projectService.deleteEmployeeProject(this.id, projectId)
+      .subscribe(data => {
+        if (data === 204){
+          this.employeeProjects.splice(index, 1);
+        }
+      })
+  }
+
   public onChangeSkill(value, characteristicId){
     this.employeesService.updateEmployeeCharacteristic(value, characteristicId, this.employee.id)
       .subscribe(data => {
         this.employee.characteristics = data;
       });
+  }
+
+  public onChangeProject(projectId){
+    this.projectId = projectId;
   }
 
 }

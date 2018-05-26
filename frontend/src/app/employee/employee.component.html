@@ -35,14 +35,15 @@
   </div>
   <div class="col-md-5">
     <div class="col-md-6">
-      <p *ngFor="let project of projects">
-        <button (click)="addProject(project.id)" class="btn btn-default">Add Project {{project.name}}</button>
-      </p>
+        <select class="form-control" (change)="onChangeProject($event.target.value)">
+          <option *ngFor="let project of projects" value="{{project.id}}">{{project.name}}</option>
+        </select>
+        <button (click)="addProject()" class="btn btn-default">Add Project</button>
     </div>
     <div class="col-md-6">
       <h3>Projects</h3>
       <p *ngFor="let employeeProject of employeeProjects">
-        {{employeeProject.name}}
+        {{employeeProject.name}} <span (click)="deleteEmployeeProject(employeeProject.id)" class="glyphicon glyphicon-remove-circle"></span>
       </p>
     </div>
   </div>
