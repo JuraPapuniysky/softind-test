@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class EmployeeCharacteristic extends Model
 {
     protected $table = 'employee_characteristic';
-
+    protected $fillable = ['characteristic_id', 'employee_id'];
     public static function getAverage()
     {
         return DB::table('employee_characteristic')

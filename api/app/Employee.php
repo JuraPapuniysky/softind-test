@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 class Employee extends Model
 {
 
+    protected $fillable = ['full_name'];
     const DEFAULT_PHOTO = 'files/photos/default/default_employee.jpg';
     const PHOTO_PATH = 'files/photos/employees/';
 
@@ -87,6 +88,16 @@ class Employee extends Model
         EmployeeProject::where('employee_id', '=', $this->id)->delete();
         EmployeeCharacteristic::where('employee_id', '=', $this->id)->delete();
         return parent::delete();
+    }
+
+    public function createEmployeeData()
+    {
+        foreach (Characteristic::get() as $characeristic){
+            EmployeeCharacteristic::create([
+               'characteristic_id' => $characeristic->id,
+               'employee_id' => $this->id,
+            ]);
+        }
     }
 
     /**

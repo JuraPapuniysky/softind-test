@@ -32,7 +32,8 @@ export class ListComponent implements OnInit {
     this.showForm = false;
     this.employeesService.create(fullName)
       .subscribe(data => {
-        this.employees.push(data.employee);
+        this.employees.push(data.employees[0]);
+        console.log(data);
       });
   }
 
