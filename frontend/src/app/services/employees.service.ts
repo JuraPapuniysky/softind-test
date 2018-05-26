@@ -13,11 +13,11 @@ export class EmployeesService {
   constructor(private http: HttpClient) {
   }
 
-  public getEmployeesList(): Observable<{}> {
+  public getEmployeesList() {
     return this.http.get(this.url + 'employees/');
   }
 
-  public getSearchList(creteria): Observable<{}> {
+  public getSearchList(creteria) {
     return this.http.get(this.url + 'employees/search/' + creteria);
   }
 

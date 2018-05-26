@@ -34,9 +34,11 @@ export class EmployeeComponent implements OnInit {
   }
 
   public getEmployee(id){
+    let dataResp: any;
     this.employeesService.getEmployee(id)
       .subscribe(data=>{
-        this.employee = data.employees[0];
+         dataResp = data;
+        this.employee = dataResp.employees[0];
         this.employeeProjects = this.employee.projects;
         this.model = new Employee(this.employee.id, this.employee.full_name, this.employee.photo, this.employee.characteristics);
         console.log(this.employee);
@@ -44,16 +46,20 @@ export class EmployeeComponent implements OnInit {
   }
 
   public getProjects(){
+    let dataResp: any;
     this.projectService.getProjects()
       .subscribe(data => {
-        this.projects = data.projects;
+        dataResp  = data;
+        this.projects = dataResp.projects;
       })
   }
 
   public addProject(projectId){
+    let dataResp: any;
     this.projectService.addProject(this.id, projectId)
       .subscribe(data => {
-        this.employeeProjects = data.projects
+        dataResp = data;
+        this.employeeProjects = dataResp.projects
       })
   }
 
@@ -73,10 +79,11 @@ export class EmployeeComponent implements OnInit {
   }
 
   public updateEmployee(){
+    let dataResp: any;
     this.employeesService.updateEmployee(this.model)
       .subscribe(data => {
-        this.employee = data.employees[0];
-        console.log(data);
+        dataResp = data;
+        this.employee = dataResp.employees[0];
       });
   }
 

@@ -11,6 +11,8 @@ export class ListComponent implements OnInit {
   public employees: any;
   public averages: any;
 
+  private data: any;
+
   public showForm: boolean = false;
 
   constructor(private employeesService: EmployeesService) { }
@@ -20,28 +22,32 @@ export class ListComponent implements OnInit {
   }
 
   public list() {
+    let dataResp:any;
     this.employeesService.getEmployeesList()
       .subscribe(data => {
-        console.log(data);
-        this.employees = data.employees;
-        this.averages = data.average;
+        dataResp = data;
+        this.employees = dataResp.employees;
+        this.averages = dataResp.averages;
       });
   }
 
   public createEmployee(fullName){
+    let dataResp: any;
     this.showForm = false;
     this.employeesService.create(fullName)
       .subscribe(data => {
-        this.employees.push(data.employees[0]);
-        console.log(data);
+        dataResp = data;
+        this.employees.push(dataResp.employees[0]);
       });
   }
 
   public search(creteria){
+    let dataResp: any;
     if (creteria != '') {
       this.employeesService.getSearchList(creteria)
         .subscribe(data => {
-          this.employees = data.employees;
+          dataResp = data;
+          this.employees = dataResp.employees;
         });
     } else {
       this.list();
@@ -52,7 +58,9 @@ export class ListComponent implements OnInit {
     let index = this.employees.findIndex(d => d.id === employeeId);
     this.employeesService.delete(employeeId)
       .subscribe(data => {
-        this.employees.splice(index, 1);
+        if (data == 204){
+          this.employees.splice(index, 1);
+        }
       });
   }
 
